@@ -1,5 +1,5 @@
 local OBJFileURL = ""
-local meshScale = 50
+local meshScale = 10
 local objectNames = {}
 local textureURLs = {}
 local textureFlags = {}
