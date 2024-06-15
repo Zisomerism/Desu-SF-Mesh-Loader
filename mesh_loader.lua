@@ -38,7 +38,7 @@ end
 local function setHoloMesh(holo, mesh_, texture)
     holo:setMesh(mesh_)
     holo:setMeshMaterial(texture)
-    holo:setRenderBounds(Vector(-1000),Vector(1000)) --adjust if you're loading something huge or something with massively offset meshes (which you probably shouldn't be doing), otherwise this should be fine.
+    holo:setRenderBounds(Vector(-500),Vector(500))
 end
 
 function createMeshFromOBJ()
