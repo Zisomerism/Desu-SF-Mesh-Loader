@@ -41,7 +41,7 @@ local function setHoloMesh(holo, mesh_, texture)
     holo:setRenderBounds(Vector(-1000),Vector(1000)) --adjust if you're loading something huge or something with massively offset meshes (which you probably shouldn't be doing), otherwise this should be fine.
 end
 
-local function createMeshFromOBJ()
+function createMeshFromOBJ()
     http.get(OBJFileURL,function(objdata)  
         for k,v in ipairs(objectNames) do
             local loadMesh = coroutine.wrap(function() meshLoadedFromObj = mesh.createFromObj(objdata, true, true)[objectNames[k]] return true end) 
