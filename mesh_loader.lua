@@ -26,7 +26,6 @@ local function createHolo()
 end
 
 local function createTexture(textureURL, flagInt) 
-    flagInt = flagInt or 0
     local texture = material.create("VertexLitGeneric")
     texture:setTextureURL("$basetexture", textureURL)
     if flagInt > 0 then
