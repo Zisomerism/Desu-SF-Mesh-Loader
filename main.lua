@@ -56,3 +56,5 @@ http.get(OBJFileURL,function(objdata)
         end)
     end
 end)   
+
+return 1
