@@ -19,8 +19,7 @@ function addObjectTexturePair(objectName, textureURL, flagInt)
 end
 
 local function createHolo()
-    local holo = holograms.create(chip():getPos()+Vector(0,0,zAxisOffset), chip():getAngles()+Angle(0,0,90), "models/hunter/blocks/cube025x025x025.mdl", Vector(meshScale))
-    holo:setColor(Color(255,255,255))
+    local holo = holograms.create(chip():getPos()+Vector(0,0,zAxisOffset), chip():localToWorldAngles(Angle(0,0,90)), "models/hunter/blocks/cube025x025x025.mdl", Vector(meshScale))
     holo:setParent(chip())
     return holo
 end
