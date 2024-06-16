@@ -3,6 +3,7 @@ local meshScale = 10
 local zAxisOffset = 0
 local objectNames = {}
 local textureURLs = {}
+local bumpmapURLs = {}
 local textureFlags = {}
 
 function loadOBJFromURL(objURL, scale, zOffset)
@@ -11,10 +12,18 @@ function loadOBJFromURL(objURL, scale, zOffset)
     zAxisOffset = zOffset or 0
 end
 
-function addObjectTexturePair(objectName, textureURL, flagInt)
+function addObjectTexturePair(objectName, textureURL, bumpmapURLorFlagInt, flagInt)
+    local bumpmapURL = bumpmapURL or ""
     flagInt = flagInt or 0
+    if isnumber(bumpmapURLorFlagInt) then
+        flagInt = bumpmapURLorFlagInt
+        bumpmapURL = ""
+    else
+        bumpmapURL = bumpmapURLorFlagInt
+    end
     table.insert(objectNames, objectName)
     table.insert(textureURLs, textureURL)
+    table.insert(bumpmapURLs, bumpmapURL)
     table.insert(textureFlags, flagInt)
 end
 
@@ -24,9 +33,21 @@ local function createHolo()
     return holo
 end
 
-local function createTexture(textureURL, flagInt) 
+local function createTexture(textureURL, bumpmapURL, flagInt) 
     local texture = material.create("VertexLitGeneric")
     texture:setTextureURL("$basetexture", textureURL)
+    if bumpmapURL != "" then
+        texture:setTextureURL("$bumpmap", textureURL)
+        texture:setTexture("$envmap", "env_cubemap")
+        texture:setFloat("$envmapcontrast", 1)
+        texture:setFloat("$envmapsaturation", 0.20000000298023)
+        texture:setVector("$envmaptint", Vector(0.006585, 0.006585, 0.006585))
+        texture:setInt("$phong", 1)
+        texture:setFloat("$phongalbedotint", 0)
+        texture:setFloat("$phongboost", 2)
+        texture:setFloat("$phongexponent", 60)
+        texture:setVector("$phongfresnelranges", Vector(0.219520, 0.612066, 1.000000))
+    end
     if flagInt > 0 then
         texture:setInt("$flags", flagInt)
     end
@@ -46,8 +67,8 @@ function createMeshFromOBJ()
             hook.add("think",objectNames[k],function()
                 while math.max(quotaAverage(), quotaUsed()) < quotaMax() /10 do
                     if loadMesh() then
-                        setHoloMesh(createHolo(), meshLoadedFromObj, createTexture(textureURLs[k],textureFlags[k]))
-                        print("Finished loading:", objectNames[k], "with texture:", textureURLs[k])
+                        setHoloMesh(createHolo(), meshLoadedFromObj, createTexture(textureURLs[k],bumpmapURLs[k],textureFlags[k]))
+                        print("Finished loading:", objectNames[k], "with texture:", textureURLs[k], bumpmapURLs[k])
                         hook.remove("think",objectNames[k])
                         return
                     end
