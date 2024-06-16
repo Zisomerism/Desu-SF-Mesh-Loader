@@ -7,12 +7,12 @@ require("desu_mesh_loader.txt")
 
 
 
---loadOBJFromURL(string "URL", int Scale or nil)
+--loadOBJFromURL(string "URL to .obj", int Scale or nil, int ZOffset)
 --the URL must be a direct link to the raw .obj file
 --the scale value determines the scale of the mesh once loaded in and it is optional
 loadOBJFromURL("https://raw.githubusercontent.com/Zisomerism/gmodels/main/herc1.obj",30) 
 
---addObjectTexturePair(string "Object name", string "URL", int Flag or nil)
+--addObjectTexturePair(string "Object name", string "URL to texture image", int Flag or nil)
 --the "Object name" can be found in the .obj file, but it is much easier to open the .obj in Blender and copy them from the menu on the right side
 --the texture image must be 1024x1024 resolution, with the current implementation if two objects use the same texture it must be loaded for each of them, I'll probably fix this eventually
 --the flag values can be found here: https://developer.valvesoftware.com/wiki/Material_Flags, they are optional
