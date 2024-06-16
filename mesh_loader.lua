@@ -5,7 +5,7 @@ local objectNames = {}
 local textureURLs = {}
 local textureFlags = {}
 
-function loadOBJFromURL(objURL,scale,zOffset)
+function loadOBJFromURL(objURL, scale, zOffset)
     OBJFileURL = objURL
     meshScale = scale or 10
     zAxisOffset = zOffset or 0
@@ -19,11 +19,9 @@ function addObjectTexturePair(objectName, textureURL, flagInt)
 end
 
 local function createHolo()
-    local holo = holograms.create(chip():getPos()+Vector(0,0,zAxisOffset), chip():getAngles()+Angle(0,0,0), "models/hunter/blocks/cube025x025x025.mdl", Vector(meshScale))
+    local holo = holograms.create(chip():getPos()+Vector(0,0,zAxisOffset), chip():getAngles(), "models/hunter/blocks/cube025x025x025.mdl", Vector(meshScale))
     holo:setColor(Color(255,255,255))
     holo:setParent(chip())
-    holo:setAngles(chip():localToWorldAngles(Angle(0,0,90)))  
-    holo:setPos(chip():getPos())
     return holo
 end
 
