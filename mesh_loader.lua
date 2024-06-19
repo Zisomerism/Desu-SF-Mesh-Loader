@@ -33,24 +33,25 @@ local function createHolo()
     return holo
 end
 
-local function createTexture(textureURL, bumpmapURL, flagInt) 
+local function createTexture(textureURL, bumpmapURL, flagInt)
     local texture = material.create("VertexLitGeneric")
     texture:setTextureURL("$basetexture", textureURL)
     if bumpmapURL != "" then
-        texture:setTextureURL("$bumpmap", textureURL)
+        texture:setTextureURL("$bumpmap", bumpmapURL)
         texture:setTexture("$envmap", "env_cubemap")
         texture:setFloat("$envmapcontrast", 1)
         texture:setFloat("$envmapsaturation", 0.20000000298023)
         texture:setVector("$envmaptint", Vector(0.006585, 0.006585, 0.006585))
         texture:setInt("$phong", 1)
-        texture:setFloat("$phongalbedotint", 0)
-        texture:setFloat("$phongboost", 2)
-        texture:setFloat("$phongexponent", 60)
-        texture:setVector("$phongfresnelranges", Vector(0.219520, 0.612066, 1.000000))
+        texture:setFloat("$phongboost", 1)
+        texture:setFloat("$phongexponent", 200)
+        texture:setVector("$phongfresnelranges", Vector(0.2, 0.6, 1))
     end
     if flagInt > 0 then
         texture:setInt("$flags", flagInt)
     end
+    net.start("")
+    net.send()
     return texture
 end
 
