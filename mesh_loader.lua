@@ -13,11 +13,11 @@ function loadOBJFromURL(objURL, scale, zOffset)
 end
 
 function addObjectTexturePair(objectName, textureURL, bumpmapURLorFlagInt, flagInt)
-    local bumpmapURL = bumpmapURL or ""
+    local bumpmapURL = bumpmapURL or nil
     flagInt = flagInt or 0
     if isnumber(bumpmapURLorFlagInt) then
         flagInt = bumpmapURLorFlagInt
-        bumpmapURL = ""
+        bumpmapURL = nil
     else
         bumpmapURL = bumpmapURLorFlagInt
     end
@@ -36,7 +36,7 @@ end
 local function createTexture(textureURL, bumpmapURL, flagInt)
     local texture = material.create("VertexLitGeneric")
     texture:setTextureURL("$basetexture", textureURL)
-    if bumpmapURL != "" then
+    if bumpmapURL != nil then
         texture:setTextureURL("$bumpmap", bumpmapURL)
         texture:setTexture("$envmap", "env_cubemap")
         texture:setFloat("$envmapcontrast", 1)
@@ -50,8 +50,6 @@ local function createTexture(textureURL, bumpmapURL, flagInt)
     if flagInt > 0 then
         texture:setInt("$flags", flagInt)
     end
-    net.start("")
-    net.send()
     return texture
 end
 
