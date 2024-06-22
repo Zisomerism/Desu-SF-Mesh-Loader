@@ -1,3 +1,7 @@
+--@name mesh/testing/test_loader_shared
+--@author desu
+--@shared
+
 if SERVER then
     
     local function createWireInputs(objectNameTable)
@@ -100,6 +104,7 @@ else
     
     function createMeshFromOBJ()
         http.get(OBJFileURL,function(objdata)  
+            local loadedCount = 0
             for k,v in ipairs(objectNames) do
                 local holo = createHolo(objectNames[k])
                 local texture = createTexture(textureURLs[k],bumpmapURLs[k],textureFlags[k])
@@ -111,6 +116,10 @@ else
                             holo:setScale(Vector(meshScale))
                             print("Finished loading:", objectNames[k], "with texture:", textureURLs[k], bumpmapURLs[k])
                             hook.remove("think",objectNames[k])
+                            loadedCount = loadedCount + 1
+                            if loadedCount == table.count(objectNames) then
+                                print("All objects loaded!")
+                            end
                             return
                         end
                     end
@@ -118,7 +127,7 @@ else
             end
             net.start("handlewireinputcreation")
             net.writeTable(table.getKeys(holoTable))
-            net.send() 
+            net.send()
             print("Creating wire entity inputs for parenting...") 
         end) 
     end 
@@ -129,5 +138,5 @@ else
         parentHolo(objectName, parentEnt)
         print(objectName, "parented to", parentEnt)
     end)
-    
+
 end
