@@ -119,7 +119,7 @@ else
             net.start("handlewireinputcreation")
             net.writeTable(table.getKeys(holoTable))
             net.send() 
-            print("Creating wire entity inputs for parenting") 
+            print("Creating wire entity inputs for parenting...") 
         end) 
     end 
     
