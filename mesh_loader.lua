@@ -1,7 +1,3 @@
---@name mesh/testing/test_loader_shared
---@author desu
---@shared
-
 if SERVER then
     
     local function createWireInputs(objectNameTable)
