@@ -68,9 +68,15 @@ else
     
     local function createTexture(textureURL, bumpmapURL, flagInt)
         local texture = material.create("VertexLitGeneric")
-        texture:setTextureURL("$basetexture", textureURL)
+        texture:setTextureURL("$basetexture", textureURL, function(mat, url, w, h, layout)
+            if mat == nil then return end
+            layout(0, 0, mat:getWidth(), mat:getHeight())
+        end)
         if bumpmapURL != nil then
-            texture:setTextureURL("$bumpmap", bumpmapURL)
+            texture:setTextureURL("$bumpmap", bumpmapURL, function(mat, url, w, h, layout)
+                if mat == nil then return end
+                layout(0, 0, mat:getWidth(), mat:getHeight())
+            end)
             texture:setTexture("$envmap", "env_cubemap")
             texture:setFloat("$envmapcontrast", 1)
             texture:setFloat("$envmapsaturation", 0.20000000298023)
