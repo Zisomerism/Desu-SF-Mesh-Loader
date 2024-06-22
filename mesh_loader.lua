@@ -119,6 +119,7 @@ else
             net.start("handlewireinputcreation")
             net.writeTable(table.getKeys(holoTable))
             net.send() 
+            print("Creating wire entity inputs for parenting") 
         end) 
     end 
     
@@ -126,6 +127,7 @@ else
         local objectName = net.readString()
         local parentEnt = net.readEntity()
         parentHolo(objectName, parentEnt)
+        print(objectName, "parented to", parentEnt)
     end)
     
 end
